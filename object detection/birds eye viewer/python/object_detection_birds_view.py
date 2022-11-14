@@ -31,7 +31,8 @@ import pyzed.sl as sl
 import ogl_viewer.viewer as gl
 import cv_viewer.tracking_viewer as cv_viewer
 from batch_system_handler import *
-
+import os
+os.environ["DISPLAY"] = ":0"
 
 ##
 # Variable to enable/disable the batch option in Object Detection module
@@ -155,6 +156,13 @@ if __name__ == "__main__":
                 update_render_view = True
                 update_3d_view = True
                 update_tracking_view = True
+
+                for my_object in objects.object_list:
+                    object_id = my_object.id # Get the object id
+                    object_position = my_object.position # Get the object position
+                    object_velocity = my_object.velocity # Get the object velocity
+                    print("Object {0} is at {1} with vel {2}\n".format(object_id, object_position, object_velocity))
+
 
                 if USE_BATCHING:
                     zed.get_position(cam_c_pose, sl.REFERENCE_FRAME.CAMERA)
